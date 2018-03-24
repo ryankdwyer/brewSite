@@ -14,16 +14,18 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(actionCreators, dispatch);
 }
 
+
 @connect(mapStateToProps, mapDispatchToProps)
-class Analytics extends React.Component { // eslint-disable-line react/prefer-stateless-function
+class RecipeBuilder extends React.Component {
+
     render() {
-        return (
+        return(
             <div className="col-md-8">
-                <h1>Analytics</h1>
+                <h1>Recipe Builder</h1>
                 <hr />
             </div>
-        );
+        )
     }
 }
 
-export default Analytics;
+export default RecipeBuilder;

@@ -9,7 +9,9 @@ import { HomeContainer } from './containers/HomeContainer';
 import LoginView from './components/LoginView';
 import RegisterView from './components/RegisterView';
 import ProtectedView from './components/ProtectedView';
-import Analytics from './components/Analytics';
+import Recipes from './components/Recipes';
+import RecipeBuilder from './components/RecipeBuilder';
+import HydrometerTemperature from './components/HydrometerTemp';
 import NotFound from './components/NotFound';
 
 import { DetermineAuth } from './components/DetermineAuth';
@@ -22,7 +24,9 @@ export default (
         <Route path="login" component={requireNoAuthentication(LoginView)} />
         <Route path="register" component={requireNoAuthentication(RegisterView)} />
         <Route path="home" component={requireNoAuthentication(HomeContainer)} />
-        <Route path="analytics" component={requireAuthentication(Analytics)} />
+        <Route path="recipes" component={requireAuthentication(Recipes)} />
+        <Route path="recipe_builder" component={requireAuthentication(RecipeBuilder)} />
+        <Route path="hydrometer_temp" component={requireAuthentication(HydrometerTemperature)} />
         <Route path="*" component={DetermineAuth(NotFound)} />
     </Route>
 );
