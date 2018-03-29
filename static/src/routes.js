@@ -12,6 +12,8 @@ import ProtectedView from './components/ProtectedView';
 import Recipes from './components/Recipes';
 import RecipeBuilder from './components/RecipeBuilder';
 import HydrometerTemperature from './components/HydrometerTemp';
+import ABVCalculator from './components/ABV';
+import SRMCalculator from './components/SRMCalculator';
 import NotFound from './components/NotFound';
 
 import { DetermineAuth } from './components/DetermineAuth';
@@ -27,6 +29,8 @@ export default (
         <Route path="recipes" component={requireAuthentication(Recipes)} />
         <Route path="recipe_builder" component={requireAuthentication(RecipeBuilder)} />
         <Route path="hydrometer_temp" component={requireAuthentication(HydrometerTemperature)} />
+        <Route path="abv" component={requireAuthentication(ABVCalculator)} />
+        <Route path="srm" component={requireAuthentication(SRMCalculator)} />
         <Route path="*" component={DetermineAuth(NotFound)} />
     </Route>
 );

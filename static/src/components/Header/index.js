@@ -93,6 +93,17 @@ export class Header extends Component {
                                 </MenuItem>
                                 <Divider />
 
+                                <MenuItem onClick={() => this.dispatchNewRoute('/abv')}>
+                                    Alcohol by Volume Calculator
+                                </MenuItem>
+                                <Divider />
+
+                                <MenuItem onClick={() => this.dispatchNewRoute('/srm')}>
+                                    SRM Calculator
+                                </MenuItem>
+                                <Divider />
+
+
                                 <MenuItem onClick={(e) => this.logout(e)}>
                                     Logout
                                 </MenuItem>
@@ -101,7 +112,7 @@ export class Header extends Component {
                 </LeftNav>
                 <AppBar
                   title="React-Redux-Flask"
-                  onLeftIconButtonTouchTap={() => this.openNav()}
+                  onClick={() => this.openNav()}
                   iconElementRight={
                       <FlatButton label="Home" onClick={() => this.dispatchNewRoute('/')} />
                     }
