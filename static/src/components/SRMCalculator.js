@@ -7,6 +7,7 @@ import { MenuItem } from 'material-ui/Menu';
 import SelectField from 'material-ui/SelectField';
 import RaisedButton from 'material-ui/RaisedButton';
 import * as actionCreators from '../actions/auth';
+import { GRAINS } from '../constants/index';
 
 function mapStateToProps(state) {
     return {
@@ -34,6 +35,7 @@ class SRMCalculator extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            //TODO
         };
     }
 
@@ -44,6 +46,7 @@ class SRMCalculator extends React.Component {
     }
 
     handleChange = (event, index, value) => {
+        // TODO
         this.setState({units: value});
     }
 
@@ -58,7 +61,7 @@ class SRMCalculator extends React.Component {
 			<div>
             	<h1>SRM Calculator</h1>
             	<hr />
-            	<div className="col-md-4">
+            	<div className="col-md-8">
 					<div className="col-md-12">
     					<TextField
 						  type="number"
@@ -74,18 +77,41 @@ class SRMCalculator extends React.Component {
     					<TextField
 						  type="number"
 						  name="poundsA"
-						  value={this.state.poundsA}
+						  value={this.state.pounds1}
 						  onChange={(event) => this.handleUserInput(event)}
     					  hintText="Pounds"
-    					  floatingLabelText="Pounds"
     					  floatingLabelFixed={true}
     					/>
 					</div>
 			        <div className="col-md-6">
           			    <SelectField
-                          floatingLabelText="Grain"
-                          value={this.state.grainA}
+                          value={this.state.grain1}
                           name="units"
+                          hintText="Grain"
+          			      onChange={this.handleChange}>
+                          {
+                              GRAINS.map(grain => {
+                                  return <MenuItem value={grain}>{grain.grain}</MenuItem>
+                                })
+                          }
+          			      <MenuItem value={'C'} primaryText="Celsius"></MenuItem>
+          			    </SelectField>
+                    </div>
+                    <div className="col-md-6">
+    					<TextField
+						  type="number"
+						  name="poundsA"
+						  value={this.state.pounds2}
+						  onChange={(event) => this.handleUserInput(event)}
+    					  hintText="Pounds"
+    					  floatingLabelFixed={true}
+    					/>
+					</div>
+			        <div className="col-md-6">
+          			    <SelectField
+                          value={this.state.grain2}
+                          name="units"
+                          hintText="Grain"
           			      onChange={this.handleChange}>
           			      <MenuItem value={'C'} primaryText="Celsius"></MenuItem>
           			    </SelectField>
@@ -94,38 +120,17 @@ class SRMCalculator extends React.Component {
     					<TextField
 						  type="number"
 						  name="poundsA"
-						  value={this.state.poundsA}
+						  value={this.state.pounds3}
 						  onChange={(event) => this.handleUserInput(event)}
     					  hintText="Pounds"
-    					  floatingLabelText="Pounds"
     					  floatingLabelFixed={true}
     					/>
 					</div>
 			        <div className="col-md-6">
           			    <SelectField
-                          floatingLabelText="Grain"
-                          value={this.state.grainA}
+                          value={this.state.grain3}
                           name="units"
-          			      onChange={this.handleChange}>
-          			      <MenuItem value={'C'} primaryText="Celsius"></MenuItem>
-          			    </SelectField>
-                    </div>
-                    <div className="col-md-6">
-    					<TextField
-						  type="number"
-						  name="poundsA"
-						  value={this.state.poundsA}
-						  onChange={(event) => this.handleUserInput(event)}
-    					  hintText="Pounds"
-    					  floatingLabelText="Pounds"
-    					  floatingLabelFixed={true}
-    					/>
-					</div>
-			        <div className="col-md-6">
-          			    <SelectField
-                          floatingLabelText="Grain"
-                          value={this.state.grainA}
-                          name="units"
+                          hintText="Grain"
           			      onChange={this.handleChange}>
           			      <MenuItem value={'C'} primaryText="Celsius"></MenuItem>
           			    </SelectField>
@@ -143,7 +148,7 @@ class SRMCalculator extends React.Component {
             	    	/>
 					</div>
                 </div>
-            	<div className="col-md-3">
+            	<div className="col-md-6 col-md-offset-3">
                     <Paper style={paperStyle}>
                         <h4>SRM: </h4>
                         <h3>{this.state.srm}%</h3>
