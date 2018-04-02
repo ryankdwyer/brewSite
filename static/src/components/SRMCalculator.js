@@ -35,7 +35,15 @@ class SRMCalculator extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            //TODO
+            batchSize: 5,
+            grain1: {},
+            grain2: {},
+            grain3: {},
+            pounds1: '',
+            pounds2: '',
+            pounds3: '',
+            keys: [1, 2, 3],
+            srm: '',
         };
     }
 
@@ -45,16 +53,44 @@ class SRMCalculator extends React.Component {
         this.setState({[name]: value});
     }
 
-    handleChange = (event, index, value) => {
-        // TODO
-        this.setState({units: value});
+    handleChange = (type) => (event, index, value) => {
+        let stateCopy = Object.assign({}, this.state);
+        stateCopy[type] = value;
+        this.setState(stateCopy);
     }
 
     reset = () => {
-        this.setState({ });
+        this.setState({ 
+            batchSize: 5,
+            grain1: {},
+            grain2: {},
+            grain3: {},
+            pounds1: '',
+            pounds2: '',
+            pounds3: '',
+        });
     }
 
-    calculate = () => { }
+    calcMCU = (pounds, lovibond, gallons) => {
+        return (pounds * lovibond) / gallons;
+    }
+
+    moreyCalc = (mcu) => {
+        return 1.4922 * (Math.pow(mcu, 0.6859));
+    }
+
+    calculate = () => { 
+        let tempState = Object.assign({}, this.state);
+        let gallons = tempState.batchSize;
+        let mcu = 0;
+        this.state.keys.forEach(function(key) {
+            let pounds = tempState['pounds' + key];
+            let lovibond = tempState['grain' + key].lovibond;
+            mcu += this.calcMCU(pounds, lovibond, gallons);
+        }, this);
+        let srm = this.moreyCalc(mcu);
+        this.setState({srm:srm});
+    }
 
     render () {
         return(
@@ -76,7 +112,7 @@ class SRMCalculator extends React.Component {
 					<div className="col-md-6">
     					<TextField
 						  type="number"
-						  name="poundsA"
+						  name="pounds1"
 						  value={this.state.pounds1}
 						  onChange={(event) => this.handleUserInput(event)}
     					  hintText="Pounds"
@@ -85,14 +121,14 @@ class SRMCalculator extends React.Component {
 					</div>
 			        <div className="col-md-6">
           			    <SelectField
-                          value={this.state.grain1}
+                          value={this.state.grain1.grain}
                           name="units"
                           hintText="Grain"
-          			      onChange={this.handleChange}>
+          			      onChange={this.handleChange('grain1')}>
                           {
                               GRAINS.map(grain => {
-                                  return <MenuItem value={grain}>{grain.grain}</MenuItem>
-                                })
+                                return <MenuItem value={grain}>{grain.grain}</MenuItem>
+                              })
                           }
           			      <MenuItem value={'C'} primaryText="Celsius"></MenuItem>
           			    </SelectField>
@@ -100,7 +136,7 @@ class SRMCalculator extends React.Component {
                     <div className="col-md-6">
     					<TextField
 						  type="number"
-						  name="poundsA"
+						  name="pounds2"
 						  value={this.state.pounds2}
 						  onChange={(event) => this.handleUserInput(event)}
     					  hintText="Pounds"
@@ -109,17 +145,21 @@ class SRMCalculator extends React.Component {
 					</div>
 			        <div className="col-md-6">
           			    <SelectField
-                          value={this.state.grain2}
+                          value={this.state.grain2.grain}
                           name="units"
                           hintText="Grain"
-          			      onChange={this.handleChange}>
-          			      <MenuItem value={'C'} primaryText="Celsius"></MenuItem>
+          			      onChange={this.handleChange('grain2')}>
+                          {
+                              GRAINS.map(grain => {
+                                  return <MenuItem value={grain}>{grain.grain}</MenuItem>
+                                })
+                          }
           			    </SelectField>
                     </div>
                     <div className="col-md-6">
     					<TextField
 						  type="number"
-						  name="poundsA"
+						  name="pounds3"
 						  value={this.state.pounds3}
 						  onChange={(event) => this.handleUserInput(event)}
     					  hintText="Pounds"
@@ -128,11 +168,15 @@ class SRMCalculator extends React.Component {
 					</div>
 			        <div className="col-md-6">
           			    <SelectField
-                          value={this.state.grain3}
+                          value={this.state.grain3.grain}
                           name="units"
                           hintText="Grain"
-          			      onChange={this.handleChange}>
-          			      <MenuItem value={'C'} primaryText="Celsius"></MenuItem>
+          			      onChange={this.handleChange('grain3')}>
+                          {
+                              GRAINS.map(grain => {
+                                  return <MenuItem value={grain}>{grain.grain}</MenuItem>
+                                })
+                          }
           			    </SelectField>
                     </div>
 					<div className="col-md-12">
@@ -151,11 +195,11 @@ class SRMCalculator extends React.Component {
             	<div className="col-md-6 col-md-offset-3">
                     <Paper style={paperStyle}>
                         <h4>SRM: </h4>
-                        <h3>{this.state.srm}%</h3>
+                        <h3>{this.state.srm}</h3>
                     </Paper>
                     <Paper style={paperStyle}>
                         <h4>EBC: </h4>
-                        <h3>{this.state.ebc}%</h3>
+                        <h3>{this.state.ebc}</h3>
                     </Paper>
                     <Paper style={paperStyle}>
                         <h4>Approximate Color:</h4>
