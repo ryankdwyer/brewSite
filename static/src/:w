@@ -166,9 +166,6 @@ class SRMCalculator extends React.Component {
             width: 150,
             backgroundColor: this.state.colorHex,
         };
-        const containerStyle = {
-            width: 450
-        };
 
 
         return(
@@ -278,8 +275,8 @@ class SRMCalculator extends React.Component {
                     <Paper style={paperStyle}>
                         <h4>SRM Hex: </h4>
                         <h3>{this.state.colorHex}</h3>
-                        <div style={containerStyle}>
-                            <div style={srmHex}> </div>
+                        <div style="width: 200px">
+                            <div style={colorHex}> </div>
                         </div>
                     </Paper>
                     <Paper style={paperStyle}>
