@@ -67,16 +67,16 @@ export class Header extends Component {
             <header>
                 <LeftNav open={this.state.open}>
                     {
-                        !this.props.isAuthenticated ?
-                            <div>
-                                <MenuItem onClick={() => this.dispatchNewRoute('/login')}>
-                                    Login
-                                </MenuItem>
-                                <MenuItem onClick={() => this.dispatchNewRoute('/register')}>
-                                    Register
-                                </MenuItem>
-                            </div>
-                            :
+                        //!this.props.isAuthenticated ?
+                        //    <div>
+                        //        <MenuItem onClick={() => this.dispatchNewRoute('/login')}>
+                        //            Login
+                        //        </MenuItem>
+                        //        <MenuItem onClick={() => this.dispatchNewRoute('/register')}>
+                        //            Register
+                        //        </MenuItem>
+                        //    </div>
+                        //    :
                             <div>
                                 <MenuItem onClick={() => this.dispatchNewRoute('/recipes')}>
                                     Recipes
@@ -102,7 +102,6 @@ export class Header extends Component {
                                     SRM Calculator
                                 </MenuItem>
                                 <Divider />
-
 
                                 <MenuItem onClick={(e) => this.logout(e)}>
                                     Logout
